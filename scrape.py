@@ -7,6 +7,12 @@ Scraping Southwest Airlines for Search Results
 
 from lxml import html
 import requests
+import datetime
+
+dateNow = datetime.datetime.now()
+year = dateNow.year
+month = dateNow.month
+day = dateNow.day
 
 page = requests.get("http://www.southwest.com")
 tree = html.fromstring(page.content)
@@ -15,6 +21,7 @@ tree = html.fromstring(page.content)
 def main():
 
 	print(tree)
+	print("%d / %d / %d" % (month, day, year))
 
 if __name__ == "__main__":
 	main()
