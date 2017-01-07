@@ -10,3 +10,7 @@ First, make sure you have virtualenv installed, then run:
 ```
 source env/bin/activate
 ```
+You will then need to install the dependencies by running:
+```
+pip install -r requirements.txt
+```
