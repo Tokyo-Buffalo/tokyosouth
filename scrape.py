@@ -20,17 +20,14 @@ day = dateNow.day
 page = requests.get("http://www.southwest.com")
 tree = html.fromstring(page.content)
 
-class Scrape(scrapy.Item):
+class SouthwestSpider(scrapy.Item, CrawlSpider):
 	originAirport = scrapy.Field()
 	destinationAirpot = scrapy.Field()
-
-class SouthwestSpider(CrawlSpider):
 	name = 'southwest'
 	allowed_domains = ['southwest.com']
 	start_url = 'https://www.southwest.com'
 
 def main():
-
 	print(tree)
 	print("%d / %d / %d" % (month, day, year))
 
