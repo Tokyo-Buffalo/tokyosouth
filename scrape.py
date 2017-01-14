@@ -9,12 +9,8 @@ import requests
 import datetime
 import scrapy
 
-dateNow = datetime.datetime.now()
-year = dateNow.year
-month = dateNow.month
-day = dateNow.day
-
 class SouthwestSpider(scrapy.Spider):
+    name = 'flights'
 
     def start_request(self):
         url = 'https://www.southwest.com'
@@ -28,9 +24,6 @@ class SouthwestSpider(scrapy.Spider):
         with open(filename, 'wb') as f:
             f.write(response.body)
         self.log('Saved file %s' % filename)
-
-def main():
-    print("%d / %d / %d" % (month, day, year))
 
 if __name__ == "__main__":
     scrapy = SouthwestSpider()
