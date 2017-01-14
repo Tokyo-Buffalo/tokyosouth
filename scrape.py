@@ -33,4 +33,4 @@ def main():
     print("%d / %d / %d" % (month, day, year))
 
 if __name__ == "__main__":
-    main()
+    scrapy = SouthwestSpider()
