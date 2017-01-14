@@ -8,27 +8,26 @@ Scraping Southwest Airlines for Search Results
 import requests
 import datetime
 import scrapy
-from lxml import html
-from scrapy.spiders import CrawlSpider, Rule
-#from scrapy.contrib.linkextractors import LinkExtractor
 
 dateNow = datetime.datetime.now()
 year = dateNow.year
 month = dateNow.month
 day = dateNow.day
 
-page = requests.get("http://www.southwest.com")
-tree = html.fromstring(page.content)
-
-class SouthwestSpider(scrapy.Item, CrawlSpider):
-	originAirport = scrapy.Field()
-	destinationAirpot = scrapy.Field()
+class SouthwestSpider(scrapy.Spider):
+    url = 'https://www.southwest.com'
 	name = 'southwest'
-	allowed_domains = ['southwest.com']
-	start_url = 'https://www.southwest.com'
+    allowed_domains = ['southwest.com']
+    yield scrapy.Reqests(url=url, callback=self.parse)
+
+    def parse(self, response):
+        page = response.url.split("/")[-2]
+        filename = 'flights-%s.html' % page
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+        self.log('Saved file %s' % filename)
 
 def main():
-	print(tree)
 	print("%d / %d / %d" % (month, day, year))
 
 if __name__ == "__main__":
