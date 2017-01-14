@@ -12,11 +12,14 @@ import scrapy
 class SouthwestSpider(scrapy.Spider):
     name = 'flights'
 
+    def __init__(self):
+        self.start_request()
+
     def start_request(self):
         url = 'https://www.southwest.com'
         name = 'southwest'
         allowed_domains = ['southwest.com']
-        scrapy.Requests(url=url, callback=self.parse)
+        scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         page = response.url.split("/")[-2]
