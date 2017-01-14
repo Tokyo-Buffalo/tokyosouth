@@ -15,10 +15,12 @@ month = dateNow.month
 day = dateNow.day
 
 class SouthwestSpider(scrapy.Spider):
-    url = 'https://www.southwest.com'
-	name = 'southwest'
-    allowed_domains = ['southwest.com']
-    yield scrapy.Reqests(url=url, callback=self.parse)
+
+    def start_request(self):
+        url = 'https://www.southwest.com'
+        name = 'southwest'
+        allowed_domains = ['southwest.com']
+        scrapy.Requests(url=url, callback=self.parse)
 
     def parse(self, response):
         page = response.url.split("/")[-2]
@@ -28,7 +30,7 @@ class SouthwestSpider(scrapy.Spider):
         self.log('Saved file %s' % filename)
 
 def main():
-	print("%d / %d / %d" % (month, day, year))
+    print("%d / %d / %d" % (month, day, year))
 
 if __name__ == "__main__":
-	main()
+    main()
