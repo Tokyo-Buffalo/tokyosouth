@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 import scrapy
 from scrapy.spider import BaseSpider
 from scrapy.http import FormRequest, Request
-
+from scrapy.http import HtmlResponse
+from scrapy.selector import Selector
 class FlightsSpider(BaseSpider):
 	name = "flights"
 
@@ -39,5 +41,7 @@ class FlightsSpider(BaseSpider):
 	def parseFlights(self, response):
 		filename = "flights.html"
 		with open(filename, 'wb') as f:
-			f.write(response.body)
+			x = response.css(".searchResultsTable").extract()
+
+			f.write(x[0].encode('utf-8').strip())
 		self.log('Saved file %s' % filename)
