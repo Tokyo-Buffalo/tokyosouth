@@ -42,6 +42,6 @@ class FlightsSpider(BaseSpider):
 		filename = "flights.html"
 		with open(filename, 'wb') as f:
 			x = response.css(".searchResultsTable").extract()
-
 			f.write(x[0].encode('utf-8').strip())
+			f.write(x[1].encode('utf-8').strip())
 		self.log('Saved file %s' % filename)
